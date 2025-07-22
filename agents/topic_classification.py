@@ -275,8 +275,11 @@ class TopicClassificationAgent(BaseAgent):
         for result in results:
             if isinstance(result, Exception):
                 classifications.append("Unclassified")
-            elif hasattr(result, 'success') and hasattr(result, 'data') and result.success:
-                classifications.append(result.data)
+            elif hasattr(result, 'success') and hasattr(result, 'data'):
+                if result.success:
+                    classifications.append(result.data)
+                else:
+                    classifications.append("Unclassified")
             else:
                 classifications.append("Unclassified")
         
