@@ -350,19 +350,62 @@ def display_audio_summaries():
         return
     
     # Generate audio summaries button
-    if st.button("🎵 Generate All Audio Summaries", type="primary"):
-        with st.spinner("Generating audio summaries..."):
-            try:
-                audio_results = asyncio.run(st.session_state.coordinator.generate_audio_summaries(
-                    st.session_state.processing_results
-                ))
+    col1, col2 = st.columns([2, 1])
+    with col1:
+        if st.button("🎵 Generate All Audio Summaries", type="primary"):
+            progress_container = st.container()
+            with progress_container:
+                progress_bar = st.progress(0)
+                status_text = st.empty()
                 
-                st.session_state.audio_results.update(audio_results)
-                st.success(f"Generated {len(audio_results)} audio summaries!")
-                st.rerun()
-                
-            except Exception as e:
-                st.error(f"Audio generation error: {str(e)}")
+                try:
+                    valid_papers = [
+                        paper_id for paper_id, result in st.session_state.processing_results.items() 
+                        if hasattr(result, 'summary') and result.summary
+                    ]
+                    
+                    if not valid_papers:
+                        st.warning("No papers with summaries available for audio generation.")
+                        return
+                    
+                    status_text.text(f"Starting audio generation for {len(valid_papers)} papers...")
+                    
+                    # Generate audio with progress updates
+                    audio_results = {}
+                    for i, paper_id in enumerate(valid_papers):
+                        progress = (i + 1) / len(valid_papers)
+                        progress_bar.progress(progress)
+                        status_text.text(f"Generating audio {i+1}/{len(valid_papers)}...")
+                        
+                        result = st.session_state.processing_results[paper_id]
+                        try:
+                            audio_result = asyncio.run(st.session_state.coordinator.generate_single_audio(
+                                paper_id, result.summary, result.topic
+                            ))
+                            if audio_result:
+                                audio_results[paper_id] = audio_result
+                        except Exception as e:
+                            st.warning(f"Failed to generate audio for paper {paper_id}: {str(e)}")
+                    
+                    # Clear progress indicators
+                    progress_container.empty()
+                    
+                    if audio_results:
+                        st.session_state.audio_results.update(audio_results)
+                        st.success(f"Generated {len(audio_results)} audio summaries!")
+                        st.rerun()
+                    else:
+                        st.error("No audio summaries were generated successfully.")
+                    
+                except Exception as e:
+                    progress_container.empty()
+                    st.error(f"Audio generation error: {str(e)}")
+                    
+    with col2:
+        if st.button("🧹 Clear Audio Cache"):
+            st.session_state.audio_results = {}
+            st.success("Audio cache cleared!")
+            st.rerun()
     
     st.divider()
     
@@ -383,18 +426,28 @@ def display_audio_summaries():
                         st.markdown(f"*Topic: {result.topic}*")
                     
                     with col2:
-                        if os.path.exists(audio_result.file_path):
-                            with open(audio_result.file_path, 'rb') as audio_file:
-                                st.download_button(
-                                    "⬇️ Download",
-                                    audio_file.read(),
-                                    file_name=f"{paper.title[:50]}.mp3",
-                                    mime="audio/mp3"
-                                )
+                        if hasattr(audio_result, 'file_path') and os.path.exists(audio_result.file_path):
+                            try:
+                                with open(audio_result.file_path, 'rb') as audio_file:
+                                    audio_data = audio_file.read()
+                                    st.download_button(
+                                        "⬇️ Download",
+                                        audio_data,
+                                        file_name=f"{paper.title[:50].replace('/', '_')}.mp3",
+                                        mime="audio/mp3",
+                                        key=f"download_{paper_id}"
+                                    )
+                            except Exception as e:
+                                st.error(f"Error loading audio file: {str(e)}")
+                        else:
+                            st.warning("Audio file not available")
                     
                     # Play audio if supported
-                    if os.path.exists(audio_result.file_path):
-                        st.audio(audio_result.file_path)
+                    if hasattr(audio_result, 'file_path') and os.path.exists(audio_result.file_path):
+                        try:
+                            st.audio(audio_result.file_path)
+                        except Exception as e:
+                            st.error(f"Error playing audio: {str(e)}")
                     
                     st.markdown("---")
     else:

@@ -45,18 +45,25 @@ class TextToSpeechAgent(BaseAgent):
     
     def _initialize_tts(self):
         """Initialize the preferred TTS engine"""
-        if PYTTSX3_AVAILABLE:
+        # Prefer gtts for better stability and quality
+        if GTTS_AVAILABLE:
+            self.preferred_engine = "gtts"
+            self.tts_engine = None  # Will create instances as needed
+            self.log_info("Using Google TTS for audio generation")
+        elif PYTTSX3_AVAILABLE:
             try:
-                self.tts_engine = pyttsx3.init()
-                self._configure_pyttsx3()
+                # Test pyttsx3 availability but don't keep persistent engine
+                test_engine = pyttsx3.init()
+                del test_engine
                 self.preferred_engine = "pyttsx3"
-                self.log_info("pyttsx3 TTS engine initialized successfully")
+                self.tts_engine = None  # Will create instances as needed
+                self.log_info("Using pyttsx3 for audio generation")
             except Exception as e:
                 self.log_warning("Failed to initialize pyttsx3", error=str(e))
                 self.tts_engine = None
-                self.preferred_engine = "gtts" if GTTS_AVAILABLE else None
+                self.preferred_engine = None
         else:
-            self.preferred_engine = "gtts" if GTTS_AVAILABLE else None
+            self.preferred_engine = None
         
         if not self.preferred_engine:
             self.log_error("No TTS engines available. Install pyttsx3 or gtts.")
@@ -166,16 +173,17 @@ class TextToSpeechAgent(BaseAgent):
         Returns:
             Formatted text ready for TTS
         """
-        # Add introduction
-        intro = f"Research paper summary for topic: {topic}. "
-        
-        # Clean up text for better speech
+        # Clean up text for better speech first
         cleaned_text = self._clean_text_for_speech(text)
         
-        # Add conclusion
-        outro = " This concludes the research paper summary."
+        # Limit text length for faster processing (max 3000 chars for speed)
+        if len(cleaned_text) > 3000:
+            cleaned_text = cleaned_text[:3000] + "... Summary truncated for audio generation."
         
-        return intro + cleaned_text + outro
+        # Add brief introduction
+        intro = f"Summary for {topic}. "
+        
+        return intro + cleaned_text
     
     def _clean_text_for_speech(self, text: str) -> str:
         """
@@ -246,8 +254,8 @@ class TextToSpeechAgent(BaseAgent):
             text: Text to convert
             output_path: Output file path
         """
-        if not self.tts_engine:
-            raise RuntimeError("pyttsx3 engine not initialized")
+        if not PYTTSX3_AVAILABLE:
+            raise RuntimeError("pyttsx3 not available")
         
         # Run in thread pool to avoid blocking
         await asyncio.get_event_loop().run_in_executor(
@@ -263,8 +271,25 @@ class TextToSpeechAgent(BaseAgent):
             output_path: Output file path
         """
         try:
-            self.tts_engine.save_to_file(text, output_path)
-            self.tts_engine.runAndWait()
+            # Create a new engine instance for each conversion to avoid threading issues
+            engine = pyttsx3.init()
+            
+            # Configure the new engine
+            engine.setProperty('rate', 180)
+            engine.setProperty('volume', 0.9)
+            
+            # Set voice if available
+            voices = engine.getProperty('voices')
+            if voices:
+                engine.setProperty('voice', voices[0].id)
+            
+            # Save to file
+            engine.save_to_file(text, output_path)
+            engine.runAndWait()
+            
+            # Clean up the engine
+            del engine
+            
         except Exception as e:
             self.log_error("pyttsx3 conversion failed", e)
             raise

@@ -447,3 +447,32 @@ class CoordinatorAgent(BaseAgent):
         except Exception as e:
             self.log_error("Citation generation failed", e)
             return [f"Error generating citation for: {paper.title}" for paper in papers]
+    
+    async def generate_single_audio(self, paper_id: str, summary: str, topic: str) -> Any:
+        """
+        Generate audio for a single paper's summary.
+        
+        Args:
+            paper_id: Paper identifier
+            summary: Text summary to convert
+            topic: Topic classification
+            
+        Returns:
+            AudioResult object or None if failed
+        """
+        try:
+            audio_result = await self.tts_agent.process({
+                'text': summary,
+                'paper_id': paper_id,
+                'topic': topic
+            })
+            
+            if audio_result.success:
+                return audio_result.data
+            else:
+                self.log_error(f"TTS failed for paper {paper_id}: {audio_result.error}")
+                return None
+                
+        except Exception as e:
+            self.log_error(f"Failed to generate audio for paper {paper_id}", e)
+            return None
