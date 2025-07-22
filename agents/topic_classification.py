@@ -13,6 +13,11 @@ try:
 except ImportError:
     SENTENCE_TRANSFORMERS_AVAILABLE = False
     SentenceTransformer = None
+    
+# Import additional tools for fallback text similarity
+import re
+from collections import Counter
+import math
 
 from .base import BaseAgent, AgentResult
 from utils.data_models import Paper
@@ -40,8 +45,11 @@ class TopicClassificationAgent(BaseAgent):
         try:
             self.log_info("Loading sentence transformer model...")
             # Use a lightweight, fast model suitable for semantic similarity
-            self.model = SentenceTransformer('all-MiniLM-L6-v2')
-            self.log_info("Sentence transformer model loaded successfully")
+            if SentenceTransformer is not None:
+                self.model = SentenceTransformer('all-MiniLM-L6-v2')
+                self.log_info("Sentence transformer model loaded successfully")
+            else:
+                self.model = None
         except Exception as e:
             self.log_error("Failed to load sentence transformer model", e)
             # Fall back to a simple keyword matching approach
@@ -141,10 +149,12 @@ class TopicClassificationAgent(BaseAgent):
             Tuple of (paper_embedding, topic_embeddings)
         """
         # Generate paper embedding
-        paper_embedding = self.model.encode([paper_content])[0]
-        
-        # Generate topic embeddings
-        topic_embeddings = self.model.encode(topics)
+        if self.model is not None:
+            paper_embedding = self.model.encode([paper_content])[0]
+            # Generate topic embeddings
+            topic_embeddings = self.model.encode(topics)
+        else:
+            raise ValueError("Model not initialized")
         
         return paper_embedding, topic_embeddings
     
@@ -265,7 +275,7 @@ class TopicClassificationAgent(BaseAgent):
         for result in results:
             if isinstance(result, Exception):
                 classifications.append("Unclassified")
-            elif result.success:
+            elif hasattr(result, 'success') and hasattr(result, 'data') and result.success:
                 classifications.append(result.data)
             else:
                 classifications.append("Unclassified")
@@ -290,7 +300,7 @@ class TopicClassificationAgent(BaseAgent):
         
         return distribution
     
-    def get_classification_confidence_stats(self, paper: Paper, topics: List[str]) -> Dict[str, float]:
+    def get_classification_confidence_stats(self, paper: Paper, topics: List[str]) -> Dict[str, Any]:
         """
         Get detailed classification statistics for a paper.
         
@@ -299,7 +309,7 @@ class TopicClassificationAgent(BaseAgent):
             topics: List of topics
             
         Returns:
-            Dictionary with confidence scores for each topic
+            Dictionary with confidence scores for each topic or error message
         """
         if not self.model:
             return {"error": "Semantic model not available"}

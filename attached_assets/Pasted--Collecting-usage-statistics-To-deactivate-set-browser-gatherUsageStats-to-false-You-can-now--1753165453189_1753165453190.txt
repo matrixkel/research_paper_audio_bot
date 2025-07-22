@@ -1,0 +1,162 @@
+
+Collecting usage statistics. To deactivate, set browser.gatherUsageStats to false.
+
+
+  You can now view your Streamlit app in your browser.
+
+  URL: http://0.0.0.0:5000
+
+2025-07-22 06:21:40,728 - Agent.TopicClassification - WARNING - sentence-transformers not available, using keyword matching only 
+2025-07-22 06:21:40,728 - Agent.Summarization - ERROR - Groq API key not configured
+2025-07-22 06:21:40,728 - Agent.Synthesis - ERROR - Groq API key not configured
+2025-07-22 06:21:40,875 - Agent.TextToSpeech - INFO - pyttsx3 TTS engine initialized successfully 
+INFO:Agent.TextToSpeech:pyttsx3 TTS engine initialized successfully 
+2025-07-22 06:21:40,876 - Agent.Coordinator - INFO - All agents initialized successfully 
+INFO:Agent.Coordinator:All agents initialized successfully 
+2025-07-22 06:21:55,010 - Agent.TopicClassification - WARNING - sentence-transformers not available, using keyword matching only 
+WARNING:Agent.TopicClassification:sentence-transformers not available, using keyword matching only 
+2025-07-22 06:21:55,101 - Agent.Summarization - INFO - Groq client initialized successfully 
+INFO:Agent.Summarization:Groq client initialized successfully 
+2025-07-22 06:21:55,115 - Agent.Synthesis - INFO - Groq client initialized successfully 
+INFO:Agent.Synthesis:Groq client initialized successfully 
+2025-07-22 06:21:55,188 - Agent.TextToSpeech - INFO - pyttsx3 TTS engine initialized successfully 
+INFO:Agent.TextToSpeech:pyttsx3 TTS engine initialized successfully 
+2025-07-22 06:21:55,189 - Agent.Coordinator - INFO - All agents initialized successfully 
+INFO:Agent.Coordinator:All agents initialized successfully 
+2025-07-22 06:21:59,473 - Agent.Coordinator - INFO - Starting search workflow {'query': 'ai '}
+INFO:Agent.Coordinator:Starting search workflow {'query': 'ai '}
+2025-07-22 06:21:59,473 - Agent.PaperDiscovery - INFO - Starting paper_discovery 
+INFO:Agent.PaperDiscovery:Starting paper_discovery 
+2025-07-22 06:21:59,474 - Agent.PaperDiscovery - INFO - Searching Semantic Scholar for: ai  
+INFO:Agent.PaperDiscovery:Searching Semantic Scholar for: ai  
+2025-07-22 06:21:59,622 - Agent.PaperDiscovery - WARNING - Semantic Scholar API rate limited, waiting... 
+WARNING:Agent.PaperDiscovery:Semantic Scholar API rate limited, waiting... 
+2025-07-22 06:22:00,623 - Agent.PaperDiscovery - INFO - Searching ArXiv for: ai  
+INFO:Agent.PaperDiscovery:Searching ArXiv for: ai  
+2025-07-22 06:22:00,924 - Agent.PaperDiscovery - INFO - Retrieved 5 papers from ArXiv 
+INFO:Agent.PaperDiscovery:Retrieved 5 papers from ArXiv 
+2025-07-22 06:22:00,925 - Agent.PaperDiscovery - INFO - Found 5 unique papers 
+INFO:Agent.PaperDiscovery:Found 5 unique papers 
+2025-07-22 06:22:00,925 - Agent.PaperDiscovery - INFO - Successfully completed paper_discovery 
+INFO:Agent.PaperDiscovery:Successfully completed paper_discovery 
+2025-07-22 06:22:00,925 - Agent.Coordinator - INFO - Discovered 5 papers 
+INFO:Agent.Coordinator:Discovered 5 papers 
+2025-07-22 06:22:00,925 - Agent.TopicClassification - INFO - Starting topic_classification 
+INFO:Agent.TopicClassification:Starting topic_classification 
+2025-07-22 06:22:00,925 - Agent.TopicClassification - INFO - Classifying paper: AI Thinking: A framework for rethinking artificial... 
+INFO:Agent.TopicClassification:Classifying paper: AI Thinking: A framework for rethinking artificial... 
+2025-07-22 06:22:00,925 - Agent.TopicClassification - INFO - Using keyword-based classification fallback 
+INFO:Agent.TopicClassification:Using keyword-based classification fallback 
+2025-07-22 06:22:00,925 - Agent.TopicClassification - INFO - Paper classified as: AI 
+INFO:Agent.TopicClassification:Paper classified as: AI 
+2025-07-22 06:22:00,926 - Agent.TopicClassification - INFO - Successfully completed topic_classification 
+INFO:Agent.TopicClassification:Successfully completed topic_classification 
+2025-07-22 06:22:00,926 - Agent.Summarization - INFO - Starting paper_summarization 
+INFO:Agent.Summarization:Starting paper_summarization 
+2025-07-22 06:22:00,926 - Agent.Summarization - ERROR - Failed to execute paper_summarization - Groq client not initialized. Please check API key configuration.
+ERROR:Agent.Summarization:Failed to execute paper_summarization - Groq client not initialized. Please check API key configuration.
+2025-07-22 06:22:00,926 - Agent.TopicClassification - INFO - Starting topic_classification 
+INFO:Agent.TopicClassification:Starting topic_classification 
+2025-07-22 06:22:00,926 - Agent.TopicClassification - INFO - Classifying paper: Intersymbolic AI: Interlinking Symbolic AI and Sub... 
+INFO:Agent.TopicClassification:Classifying paper: Intersymbolic AI: Interlinking Symbolic AI and Sub... 
+2025-07-22 06:22:00,926 - Agent.TopicClassification - INFO - Using keyword-based classification fallback 
+INFO:Agent.TopicClassification:Using keyword-based classification fallback 
+2025-07-22 06:22:00,926 - Agent.TopicClassification - INFO - Paper classified as: AI 
+INFO:Agent.TopicClassification:Paper classified as: AI 
+2025-07-22 06:22:00,926 - Agent.TopicClassification - INFO - Successfully completed topic_classification 
+INFO:Agent.TopicClassification:Successfully completed topic_classification 
+2025-07-22 06:22:00,926 - Agent.Summarization - INFO - Starting paper_summarization 
+INFO:Agent.Summarization:Starting paper_summarization 
+2025-07-22 06:22:00,926 - Agent.Summarization - ERROR - Failed to execute paper_summarization - Groq client not initialized. Please check API key configuration.
+ERROR:Agent.Summarization:Failed to execute paper_summarization - Groq client not initialized. Please check API key configuration.
+2025-07-22 06:22:00,926 - Agent.TopicClassification - INFO - Starting topic_classification 
+INFO:Agent.TopicClassification:Starting topic_classification 
+2025-07-22 06:22:00,926 - Agent.TopicClassification - INFO - Classifying paper: Overconfident and Unconfident AI Hinder Human-AI C... 
+INFO:Agent.TopicClassification:Classifying paper: Overconfident and Unconfident AI Hinder Human-AI C... 
+2025-07-22 06:22:00,926 - Agent.TopicClassification - INFO - Using keyword-based classification fallback 
+INFO:Agent.TopicClassification:Using keyword-based classification fallback 
+2025-07-22 06:22:00,926 - Agent.TopicClassification - INFO - Paper classified as: AI 
+INFO:Agent.TopicClassification:Paper classified as: AI 
+2025-07-22 06:22:00,926 - Agent.TopicClassification - INFO - Successfully completed topic_classification 
+INFO:Agent.TopicClassification:Successfully completed topic_classification 
+2025-07-22 06:22:00,926 - Agent.Summarization - INFO - Starting paper_summarization 
+INFO:Agent.Summarization:Starting paper_summarization 
+2025-07-22 06:22:00,926 - Agent.Summarization - ERROR - Failed to execute paper_summarization - Groq client not initialized. Please check API key configuration.
+ERROR:Agent.Summarization:Failed to execute paper_summarization - Groq client not initialized. Please check API key configuration.
+2025-07-22 06:22:00,926 - Agent.TopicClassification - INFO - Starting topic_classification 
+INFO:Agent.TopicClassification:Starting topic_classification 
+2025-07-22 06:22:00,926 - Agent.TopicClassification - INFO - Classifying paper: Supporting AI/ML Security Workers through an Adver... 
+INFO:Agent.TopicClassification:Classifying paper: Supporting AI/ML Security Workers through an Adver... 
+2025-07-22 06:22:00,926 - Agent.TopicClassification - INFO - Using keyword-based classification fallback 
+INFO:Agent.TopicClassification:Using keyword-based classification fallback 
+2025-07-22 06:22:00,926 - Agent.TopicClassification - INFO - Paper classified as: Unclassified 
+INFO:Agent.TopicClassification:Paper classified as: Unclassified 
+2025-07-22 06:22:00,927 - Agent.TopicClassification - INFO - Successfully completed topic_classification 
+INFO:Agent.TopicClassification:Successfully completed topic_classification 
+2025-07-22 06:22:00,927 - Agent.Summarization - INFO - Starting paper_summarization 
+INFO:Agent.Summarization:Starting paper_summarization 
+2025-07-22 06:22:00,927 - Agent.Summarization - ERROR - Failed to execute paper_summarization - Groq client not initialized. Please check API key configuration.
+ERROR:Agent.Summarization:Failed to execute paper_summarization - Groq client not initialized. Please check API key configuration.
+2025-07-22 06:22:00,927 - Agent.TopicClassification - INFO - Starting topic_classification 
+INFO:Agent.TopicClassification:Starting topic_classification 
+2025-07-22 06:22:00,927 - Agent.TopicClassification - INFO - Classifying paper: Navigating Fairness: Practitioners' Understanding,... 
+INFO:Agent.TopicClassification:Classifying paper: Navigating Fairness: Practitioners' Understanding,... 
+2025-07-22 06:22:00,927 - Agent.TopicClassification - INFO - Using keyword-based classification fallback 
+INFO:Agent.TopicClassification:Using keyword-based classification fallback 
+2025-07-22 06:22:00,927 - Agent.TopicClassification - INFO - Paper classified as: AI 
+INFO:Agent.TopicClassification:Paper classified as: AI 
+2025-07-22 06:22:00,927 - Agent.TopicClassification - INFO - Successfully completed topic_classification 
+INFO:Agent.TopicClassification:Successfully completed topic_classification 
+2025-07-22 06:22:00,927 - Agent.Summarization - INFO - Starting paper_summarization 
+INFO:Agent.Summarization:Starting paper_summarization 
+2025-07-22 06:22:00,927 - Agent.Summarization - ERROR - Failed to execute paper_summarization - Groq client not initialized. Please check API key configuration.
+ERROR:Agent.Summarization:Failed to execute paper_summarization - Groq client not initialized. Please check API key configuration.
+2025-07-22 06:22:00,927 - Agent.Coordinator - INFO - Completed processing pipeline for 5 papers 
+INFO:Agent.Coordinator:Completed processing pipeline for 5 papers 
+2025-07-22 06:22:01,012 - Agent.Coordinator - INFO - Generating APA citations for 5 papers 
+INFO:Agent.Coordinator:Generating APA citations for 5 papers 
+2025-07-22 06:22:01,012 - Agent.CitationManager - INFO - Starting citation_generation 
+INFO:Agent.CitationManager:Starting citation_generation 
+2025-07-22 06:22:01,012 - Agent.CitationManager - INFO - Generating APA citations for 5 papers 
+INFO:Agent.CitationManager:Generating APA citations for 5 papers 
+2025-07-22 06:22:01,012 - Agent.CitationManager - INFO - Successfully generated 5 citations 
+INFO:Agent.CitationManager:Successfully generated 5 citations 
+2025-07-22 06:22:01,013 - Agent.CitationManager - INFO - Successfully completed citation_generation 
+INFO:Agent.CitationManager:Successfully completed citation_generation 
+2025-07-22 06:22:19,530 - Agent.Coordinator - INFO - Starting synthesis generation 
+INFO:Agent.Coordinator:Starting synthesis generation 
+2025-07-22 06:22:19,530 - Agent.Synthesis - INFO - Starting topic_synthesis 
+INFO:Agent.Synthesis:Starting topic_synthesis 
+2025-07-22 06:22:19,530 - Agent.Synthesis - ERROR - Failed to execute topic_synthesis - Groq client not initialized. Please check API key configuration.
+ERROR:Agent.Synthesis:Failed to execute topic_synthesis - Groq client not initialized. Please check API key configuration.
+2025-07-22 06:22:19,530 - Agent.Coordinator - INFO - Generated syntheses for 0 papers 
+INFO:Agent.Coordinator:Generated syntheses for 0 papers 
+2025-07-22 06:22:19,614 - Agent.Coordinator - INFO - Generating APA citations for 5 papers 
+INFO:Agent.Coordinator:Generating APA citations for 5 papers 
+2025-07-22 06:22:19,614 - Agent.CitationManager - INFO - Starting citation_generation 
+INFO:Agent.CitationManager:Starting citation_generation 
+2025-07-22 06:22:19,614 - Agent.CitationManager - INFO - Generating APA citations for 5 papers 
+INFO:Agent.CitationManager:Generating APA citations for 5 papers 
+2025-07-22 06:22:19,614 - Agent.CitationManager - INFO - Successfully generated 5 citations 
+INFO:Agent.CitationManager:Successfully generated 5 citations 
+2025-07-22 06:22:19,614 - Agent.CitationManager - INFO - Successfully completed citation_generation 
+INFO:Agent.CitationManager:Successfully completed citation_generation 
+2025-07-22 06:22:27,614 - Agent.Coordinator - INFO - Starting audio generation 
+INFO:Agent.Coordinator:Starting audio generation 
+2025-07-22 06:22:27,615 - Agent.TextToSpeech - INFO - Starting text_to_speech_conversion 
+INFO:Agent.TextToSpeech:Starting text_to_speech_conversion 
+2025-07-22 06:22:27,615 - Agent.TextToSpeech - INFO - Converting text to audio for paper 2409.12922v1 
+INFO:Agent.TextToSpeech:Converting text to audio for paper 2409.12922v1 
+2025-07-22 06:22:27,616 - Agent.TextToSpeech - INFO - Starting text_to_speech_conversion 
+INFO:Agent.TextToSpeech:Starting text_to_speech_conversion 
+2025-07-22 06:22:27,616 - Agent.TextToSpeech - INFO - Converting text to audio for paper 2406.11563v3 
+INFO:Agent.TextToSpeech:Converting text to audio for paper 2406.11563v3 
+2025-07-22 06:22:27,617 - Agent.TextToSpeech - INFO - Starting text_to_speech_conversion 
+INFO:Agent.TextToSpeech:Starting text_to_speech_conversion 
+2025-07-22 06:22:27,617 - Agent.TextToSpeech - INFO - Converting text to audio for paper 2402.07632v3 
+INFO:Agent.TextToSpeech:Converting text to audio for paper 2402.07632v3 
+2025-07-22 06:22:27,618 - Agent.TextToSpeech - INFO - Starting text_to_speech_conversion 
+INFO:Agent.TextToSpeech:Starting text_to_speech_conversion 
+2025-07-22 06:22:27,618 - Agent.TextToSpeech - INFO - Converting text to audio for paper 2211.05075v1 
+INFO:Agent.TextToSpeech:Converting text to audio for paper 2211.05075v1 
+double free or corruption (out)
