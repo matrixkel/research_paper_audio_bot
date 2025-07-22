@@ -1,0 +1,16 @@
+streamlit
+openai
+requests
+python-dotenv
+aiohttp
+PyMuPDF
+trafilatura
+justext
+lxml_html_clean
+pandas
+groq
+pyttsx3
+gTTS
+whisper
+
+
